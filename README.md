@@ -4,6 +4,10 @@
 
 *A minimalist file system implementation based on FUSE*
 
+![](https://github.com/muqiuhan/mos/actions/workflows/build.yaml/badge.svg) 
+
+![](https://img.shields.io/badge/WIP-FFFF00)
+
 </div>
 
 ## Introduction
