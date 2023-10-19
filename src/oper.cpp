@@ -2,9 +2,9 @@
 #include "./include/log.h"
 #include "./include/params.h"
 #include "./include/unix.h"
-#include <errno.h>
+#include <cerrno>
+#include <cstring>
 #include <linux/limits.h>
-#include <string.h>
 #include <unistd.h>
 
 namespace mos

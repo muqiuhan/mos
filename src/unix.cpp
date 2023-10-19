@@ -2,10 +2,6 @@
 
 #include "include/unix.h"
 #include <fcntl.h>
-#include <filesystem>
-#include <fstream>
-#include <sys/capability.h>
-#include <sys/utsname.h>
 #include <unistd.h>
 
 /** Auto generate wrapper function for system calls  */

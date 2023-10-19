@@ -5,10 +5,6 @@
 
 #include "error.h"
 #include "result.hpp"
-#include <linux/prctl.h>
-#include <sys/capability.h>
-#include <sys/prctl.h>
-#include <sys/utsname.h>
 
 namespace mos::unix
 {
