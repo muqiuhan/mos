@@ -1,14 +1,13 @@
-/*
-  Copyright (C) 2012 Joseph J. Pfeiffer, Jr., Ph.D. <pfeiffer@cs.nmsu.edu>
-
-  This program can be distributed under the terms of the GNU GPLv3.
-  See the file COPYING.
-
-  Since the point of this filesystem is to learn FUSE and its
-  datastructures, I want to see *everything* that happens related to
-  its data structures.  This file contains macros and functions to
-  accomplish this.
-*/
+/**
+ * Copyright (C) 2012 Joseph J. Pfeiffer, Jr., Ph.D. <pfeiffer@cs.nmsu.edu>
+ *
+ * This program can be distributed under the terms of the GNU GPLv3.
+ * See the file COPYING.
+ *
+ * Since the point of this filesystem is to learn FUSE and its
+ * datastructures, I want to see *everything* that happens related to
+ * its data structures.  This file contains macros and functions to
+ * accomplish this. */
 
 #include <cerrno>
 #include <cstdarg>

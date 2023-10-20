@@ -1,9 +1,7 @@
-/*
-  Copyright (C) 2012 Joseph J. Pfeiffer, Jr., Ph.D. <pfeiffer@cs.nmsu.edu>
-
-  This program can be distributed under the terms of the GNU GPLv3.
-  See the file COPYING.
-*/
+/**
+ * Copyright (C) 2012 Joseph J. Pfeiffer, Jr., Ph.D. <pfeiffer@cs.nmsu.edu>
+ * This program can be distributed under the terms of the GNU GPLv3.
+ * See the file COPYING. */
 
 #ifndef MOS_LOG_H
 #define MOS_LOG_H
