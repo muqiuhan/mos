@@ -14,6 +14,7 @@
 
 #include "error.h"
 #include "result.hpp"
+#include <dirent.h>
 
 namespace mos::unix
 {
@@ -27,6 +28,9 @@ namespace mos::unix
 
     static Result<int, error::Err>
     Open(const std::string & file, int flag, int mode) noexcept;
+
+    static Result<dirent *, error::Err>
+    Readdir(DIR * dir_ptr) noexcept;
   };
 };
 

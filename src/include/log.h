@@ -17,7 +17,7 @@ namespace mos
   void log_msg(const char * format, ...);
   void log_conn(struct fuse_conn_info * conn);
   int log_error(char * func);
-  void log_fi(struct fuse_file_info * fi);
+  void log_file_info(struct fuse_file_info * fi);
   void log_fuse_context(struct fuse_context * context);
   void log_retstat(char * func, int retstat);
   void log_stat(struct stat * si);

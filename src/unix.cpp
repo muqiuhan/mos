@@ -72,4 +72,8 @@ namespace mos::unix
     buffer,
     nbytes,
     offset);
+
+  /** Filesystem::Readdir */
+  GENERATE_SYSTEM_CALL_WRAPPER(
+    dirent *, NULL, Filesystem::Readdir(DIR * dir_ptr), readdir, dir_ptr);
 }

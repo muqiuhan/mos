@@ -151,7 +151,7 @@ namespace mos
   // definition, and comments, come from /usr/include/fuse/fuse_common.h
   // Duplicated here for convenience.
   void
-  log_fi(struct fuse_file_info * fi)
+  log_file_info(struct fuse_file_info * fi)
   {
     log_msg("    fi:\n");
 
