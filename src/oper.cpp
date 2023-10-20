@@ -11,10 +11,9 @@
 
 #include "./include/oper.h"
 #include "./include/log.h"
-#include "./include/params.h"
 #include "./include/unix.h"
-#include <cerrno>
 #include <cstring>
+#include <dirent.h>
 #include <linux/limits.h>
 #include <unistd.h>
 
@@ -36,7 +35,6 @@ namespace mos
   int
   Mos_oper::open(const char * path, fuse_file_info * file_info) noexcept
   {
-    int ret = 0;
     int fd;
     char full_path[PATH_MAX];
 
@@ -46,13 +44,10 @@ namespace mos
     log_msg("Mos_oper::open(full_path = %s, file_info = 0x%08x)\n", full_path, file_info);
     fd = unix::Filesystem::Open(full_path, (file_info->flags)).unwrap();
 
-    if (fd < 0)
-      ret = -1;
-
     file_info->fh = fd;
-    log_fi(file_info);
+    log_file_info(file_info);
 
-    return ret;
+    return fd;
   }
 
   int
@@ -62,8 +57,6 @@ namespace mos
                  off_t offset,
                  struct fuse_file_info * file_info) noexcept
   {
-    int ret = 0;
-
     log_msg(
       "Mos_oper::read(path = %s, buffer = 0x%08x, size = %d, offset = %lld, file_info = "
       "0x%08x)\n",
@@ -73,11 +66,43 @@ namespace mos
       offset,
       file_info);
 
-    ret = unix::Filesystem::Pread(file_info->fh, buffer, size, offset).unwrap();
+    return unix::Filesystem::Pread(file_info->fh, buffer, size, offset).unwrap();
+  }
 
-    if (ret < 0)
-      ret = -1;
+  int
+  Mos_oper::readdir(const char * path,
+                    void * buffer,
+                    fuse_fill_dir_t filler,
+                    off_t offset,
+                    fuse_file_info * file_info) noexcept
+  {
+    DIR * dir_ptr;
+    struct dirent * dir;
 
-    return ret;
+    log_msg("Mos_oper::readdir(path = %s, buffer = 0x%08x, filler=0x%08x, offset=%lld, "
+            "file_info=0x%08x)\n",
+            path,
+            buffer,
+            filler,
+            offset,
+            file_info);
+
+    dir_ptr = reinterpret_cast<DIR *>(reinterpret_cast<uintptr_t>(file_info->fh));
+    dir = unix::Filesystem::Readdir(dir_ptr).unwrap();
+
+    /* Just copy the underlying directory's filenames into the mounted directory. */
+    do
+      {
+        log_msg("Calling filler with name %s\n", dir->d_name);
+        /* The offset 0 is passed to `filler()`.
+           This tells `filler()` to manage the offsets into
+           the directory structure for itself. */
+        if (filler(buffer, dir->d_name, NULL, 0) != 0)
+          return -ENOMEM;
+    } while ((dir = unix::Filesystem::Readdir(dir_ptr).unwrap()) != NULL);
+
+    log_file_info(file_info);
+
+    return 0;
   }
 }
