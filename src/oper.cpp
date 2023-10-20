@@ -33,18 +33,6 @@ namespace mos
             full_path);
   }
 
-  /**
-   * @brief Looks up errno as set by the system call, logs the error, and returns -(errno)
-   * @param msg Additional error messages
-   * @return -(errno)
-   */
-  static int
-  mos_error(const char * msg)
-  {
-    log_msg("%s: %s", msg, strerror(errno));
-    return errno;
-  }
-
   int
   Mos_oper::open(const char * path, fuse_file_info * file_info) noexcept
   {
@@ -59,10 +47,12 @@ namespace mos
     fd = unix::Filesystem::Open(full_path, (file_info->flags)).unwrap();
 
     if (fd < 0)
-      ret = mos_error("Mos_oper::open");
+      ret = -1;
 
     file_info->fh = fd;
     log_fi(file_info);
+
+    return ret;
   }
 
   int
@@ -83,10 +73,10 @@ namespace mos
       offset,
       file_info);
 
-    ret = pread(file_info->fh, buffer, size, offset);
+    ret = unix::Filesystem::Pread(file_info->fh, buffer, size, offset).unwrap();
 
     if (ret < 0)
-      ret = mos_error("Mos_oper::read");
+      ret = -1;
 
     return ret;
   }

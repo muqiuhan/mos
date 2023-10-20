@@ -21,6 +21,10 @@ namespace mos::unix
   {
    public:
     static Result<int, error::Err> Open(const std::string & file, int flag) noexcept;
+
+    static Result<int, error::Err>
+    Pread(int fd, char * buffer, size_t nbytes, off_t offset) noexcept;
+
     static Result<int, error::Err>
     Open(const std::string & file, int flag, int mode) noexcept;
   };

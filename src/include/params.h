@@ -23,9 +23,11 @@ namespace mos
 
 /** Need this to get `pwrite()`.
  ** I have to use `setvbuf()` instead of `setlinebuf()` later in consequence. */
+#undef _XOPEN_SOURCE
 #define _XOPEN_SOURCE 500
 
-  /** Maintain mos state in here */
+  /** The FILE* for the log file,
+   ** and the path to the directory we're accessing through MOS. */
   struct mos_state
   {
     FILE * logfile;

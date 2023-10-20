@@ -62,4 +62,14 @@ namespace mos::unix
                                flag,
                                mode);
 
+  /** Filesystem::Pread */
+  GENERATE_SYSTEM_CALL_WRAPPER(
+    int,
+    -1,
+    Filesystem::Pread(int fd, char * buffer, size_t nbytes, off_t offset),
+    pread,
+    fd,
+    buffer,
+    nbytes,
+    offset);
 }
