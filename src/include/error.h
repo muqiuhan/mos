@@ -9,7 +9,6 @@
  * its data structures.  This file contains macros and functions to
  * accomplish this. */
 
-
 #ifndef MOS_ERROR_H
 #define MOS_ERROR_H
 
@@ -63,8 +62,6 @@ namespace mos::error
               function,
               file,
               line);
-
-      std::terminate();
     }
   };
 
