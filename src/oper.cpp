@@ -26,7 +26,7 @@ namespace mos
     strcpy(full_path, MOS_DATA->rootdir);
     strncat(full_path, path, PATH_MAX);
 
-    log_msg("Mos_oper::full_path: rootdir = %s, path = %s, full_path = %s\n",
+    log_msg("Mos::full_path: rootdir = %s, path = %s, full_path = %s\n",
             MOS_DATA->rootdir,
             path,
             full_path);
@@ -41,7 +41,7 @@ namespace mos
     Mos_oper::full_path(full_path, path);
 
     /* logs the full path, and the address of the fi pointer. */
-    log_msg("Mos_oper::open(full_path = %s, file_info = 0x%08x)\n", full_path, file_info);
+    log_msg("Mos::open(full_path = %s, file_info = 0x%08x)\n", full_path, file_info);
     fd = unix::Filesystem::Open(full_path, (file_info->flags)).unwrap();
 
     file_info->fh = fd;
@@ -57,14 +57,13 @@ namespace mos
                  off_t offset,
                  struct fuse_file_info * file_info) noexcept
   {
-    log_msg(
-      "Mos_oper::read(path = %s, buffer = 0x%08x, size = %d, offset = %lld, file_info = "
-      "0x%08x)\n",
-      path,
-      buffer,
-      size,
-      offset,
-      file_info);
+    log_msg("Mos::read(path = %s, buffer = 0x%08x, size = %d, offset = %lld, file_info = "
+            "0x%08x)\n",
+            path,
+            buffer,
+            size,
+            offset,
+            file_info);
 
     return unix::Filesystem::Pread(file_info->fh, buffer, size, offset).unwrap();
   }
@@ -79,7 +78,7 @@ namespace mos
     DIR * dir_ptr;
     struct dirent * dir;
 
-    log_msg("Mos_oper::readdir(path = %s, buffer = 0x%08x, filler=0x%08x, offset=%lld, "
+    log_msg("Mos::readdir(path = %s, buffer = 0x%08x, filler=0x%08x, offset=%lld, "
             "file_info=0x%08x)\n",
             path,
             buffer,

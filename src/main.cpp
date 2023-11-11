@@ -12,7 +12,7 @@
 int
 main(int argc, char ** argv)
 {
-  const char *root_dir = argv[1];
-  const char *mount_dir = argv[2];
+  const char * root_dir = argv[1];
+  const char * mount_dir = argv[2];
   return 0;
 }
