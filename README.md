@@ -40,6 +40,26 @@ Mount a MOS filesystem by running the command `mos` (in general, a FUSE filesyst
 
 Every time you perform any file operation in mountdir, the operation (and a whole bunch of both relevant and irrelevant stuff) gets logged to a new file in the current working directory called `mos.log`
 
+## FAQ
+
+### Root Privilege?
+In root, any user making use of the filesystem has root privileges on that
+filesystem, If the process has access to the actual filesystem, this could easily be
+used to gain pretty much unlimited access. MOS does not allow root to mount the
+filesystem.
+
+### Multi-threaded?
+
+By default, FUSE runs multi-threaded: this means (in brief) that a second request can be handled by the filesystem before an earlier request has completed.
+
+Given the nature and intent of many fuse filesystems, it seems to me like the default should be single-threaded and multi-threaded should require an option.
+
+Although MOS is single-threaded, it doesn't guard against access to the underlying data structures through some other means.
+For example:
+
+- You can have a single underlying directory mounted through two different mountpoints by using two invocations of MOS.
+- A directory that has a MOS filesystem mounted on top of it is still accessible to normal filesystem operations.
+
 ## LICENSE
 
 Copyright (C) 2023 Muqiu Han
