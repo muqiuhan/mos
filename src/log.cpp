@@ -21,7 +21,7 @@
 #include <sys/types.h>
 
 #include "./include/log.h"
-#include "./include/params.h"
+#include "./include/params.hpp"
 
 namespace mos
 {

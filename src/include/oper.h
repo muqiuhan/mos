@@ -12,8 +12,7 @@
 #ifndef MOS_OPER_H
 #define MOS_OPER_H
 
-#include "params.h"
-#include <fuse.h>
+#include "fuse.hpp"
 #include <linux/limits.h>
 
 namespace mos
@@ -45,6 +44,9 @@ namespace mos
                        off_t offset,
                        fuse_file_info * file_info) noexcept;
 
+    using getattr_t = int (*)(const char *, struct stat *);
+    static int getattr(const char * path, struct stat * statbuf) noexcept;
+
    private:
     /** Translating the relative path  to a full path in the underlying filesystem.
      ** The [full_path] is return value and the [path] is relative path */
@@ -52,9 +54,9 @@ namespace mos
 
    public:
     /** The fuse callback struct for MOS */
-    inline static fuse_operations mos_oper = { .open = open,
-                                               .read = read,
-                                               .readdir = readdir };
+    inline static fuse_operations mos_oper = {
+      .getattr = getattr, .open = open, .read = read, .readdir = readdir
+    };
   };
 }
 

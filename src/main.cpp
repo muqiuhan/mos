@@ -9,9 +9,11 @@
  * its data structures.  This file contains macros and functions to
  * accomplish this. */
 
+#include "include/oper.h"
 #include <cstdlib>
 #include <iostream>
 #include <unistd.h>
+
 int
 main(int argc, char ** argv)
 {
@@ -27,5 +29,9 @@ main(int argc, char ** argv)
       std::cerr << "Running BBFS as root opens unnacceptable security holes" << std::endl;
       return EXIT_FAILURE;
     }
-  return EXIT_SUCCESS;
+
+  auto * mos_data = reinterpret_cast<mos::mos_state *>(malloc(sizeof(mos::mos_state)));
+
+  int fuse_stat = fuse_main(argc, argv, &mos::Mos_oper::mos_oper, mos_data);
+  return fuse_stat;
 }
