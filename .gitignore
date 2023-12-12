@@ -1,13 +1,2 @@
-# Xmake cache
-.xmake/
-build/
-
-# MacOS Cache
-.DS_Store
-
-# VSCode
 .vscode/
-
-# Clangd
-compile_commands.json
-.cache/
+_build/
